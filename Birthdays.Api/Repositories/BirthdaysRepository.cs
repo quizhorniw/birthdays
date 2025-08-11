@@ -1,5 +1,4 @@
 using Birthdays.Api.DbContexts;
-using Birthdays.Api.Models;
 using Birthdays.Api.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,25 +11,23 @@ public class BirthdaysRepository(BirthdaysDbContext context) : IBirthdaysReposit
         return await context.Birthdays.ToListAsync();
     }
 
-    public async Task<Birthday> GetBirthdayAsync(int id)
+    public async Task<Birthday?> GetBirthdayAsync(int id)
     {
-        return await context.Birthdays.Where(b => b.Id == id).FirstAsync();
+        return await context.Birthdays.FindAsync(id);
     }
 
     public async Task InsertBirthdayAsync(Birthday birthday)
     {
         await context.Birthdays.AddAsync(birthday);
-        await SaveAsync();
     }
 
-    public async Task<bool> UpdateBirthdayAsync(Birthday birthday, int id)
+    public async Task<bool> UpdateBirthdayAsync(int id, Birthday birthday)
     {
         var existingBirthday = await context.Birthdays.FindAsync(id);
         
         if (existingBirthday is null) return false;
         
         context.Entry(existingBirthday).CurrentValues.SetValues(birthday);
-        await SaveAsync();
 
         return true;
     }
@@ -61,4 +58,14 @@ public class BirthdaysRepository(BirthdaysDbContext context) : IBirthdaysReposit
         Dispose(true);
         GC.SuppressFinalize(this);
     }
+}
+
+public interface IBirthdaysRepository : IDisposable
+{
+    Task<IEnumerable<Birthday>> GetBirthdaysAsync();
+    Task<Birthday?> GetBirthdayAsync(int id);
+    Task InsertBirthdayAsync(Birthday birthday);
+    Task<bool> UpdateBirthdayAsync(int id, Birthday birthday);
+    Task DeleteBirthdayAsync(int id);
+    Task SaveAsync();
 }
