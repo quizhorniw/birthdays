@@ -1,4 +1,5 @@
 using Birthdays.Api;
+using Birthdays.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,5 +20,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MigrateDb();
 
 app.Run();
