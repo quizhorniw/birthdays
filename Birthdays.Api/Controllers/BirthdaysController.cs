@@ -37,8 +37,9 @@ public class BirthdaysController(IBirthdaysService birthdaysService) : Controlle
     }
 
     [HttpDelete("{id:int}")]
-    public async Task DeleteBirthday(int id)
+    public async Task<ActionResult> DeleteBirthday(int id)
     {
         await birthdaysService.DeleteBirthdayAsync(id);
+        return NoContent();
     }
 }
