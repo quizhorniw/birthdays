@@ -22,5 +22,6 @@ public class Startup(IConfiguration configuration)
         services.AddHangfireServer();
 
         services.AddScoped<IEmailAddressesRepository, EmailAddressesRepository>();
+        services.AddScoped<IEmailAddressesService, EmailAddressesService>();
     }
 }
