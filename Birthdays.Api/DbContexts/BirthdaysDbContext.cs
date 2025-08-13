@@ -6,4 +6,5 @@ namespace Birthdays.Api.DbContexts;
 public class BirthdaysDbContext(DbContextOptions<BirthdaysDbContext> opts) : DbContext(opts)
 {
     public DbSet<Birthday> Birthdays { get; set; }
+    public DbSet<EmailAddress> EmailAddresses { get; set; }
 }
