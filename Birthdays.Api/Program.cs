@@ -1,5 +1,6 @@
 using Birthdays.Api;
 using Birthdays.Api.Extensions;
+using Birthdays.Api.Services;
 using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,10 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.UseHangfireDashboard();
+using var scope = app.Services.CreateScope();
+var emailSenderJob = scope.ServiceProvider.GetService<EmailSenderJob>();
+emailSenderJob?.ScheduleJob();
+
 app.MigrateDb();
 
 app.Run();
