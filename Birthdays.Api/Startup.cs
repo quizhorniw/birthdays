@@ -23,5 +23,6 @@ public class Startup(IConfiguration configuration)
 
         services.AddScoped<IEmailAddressesRepository, EmailAddressesRepository>();
         services.AddScoped<IEmailAddressesService, EmailAddressesService>();
+        services.AddScoped<IEmailSender, EmailSender>();
     }
 }

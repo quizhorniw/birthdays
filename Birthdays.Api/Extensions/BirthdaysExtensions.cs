@@ -1,3 +1,4 @@
+using System.Globalization;
 using Birthdays.Api.Models.Dtos;
 using Birthdays.Api.Models.Entities;
 
@@ -33,5 +34,11 @@ public static class BirthdaysExtensions
             LastName = updateBirthdayDto.LastName,
             BirthDay = updateBirthdayDto.BirthDay
         };
+    }
+
+    public static string ToEmailString(this BirthdayDto birthdayDto)
+    {
+        var birthday = birthdayDto.BirthDay.ToString("d MMMM", new CultureInfo("ru-RU"));
+        return $"{birthdayDto.FirstName} {birthdayDto.LastName} - {birthday}";
     }
 }
