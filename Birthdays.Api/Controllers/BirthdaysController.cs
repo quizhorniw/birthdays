@@ -42,4 +42,11 @@ public class BirthdaysController(IBirthdaysService birthdaysService) : Controlle
         await birthdaysService.DeleteBirthdayAsync(id);
         return NoContent();
     }
+
+    [HttpPost("uploadPic/{id:int}")]
+    public async Task<ActionResult> UploadPhoto(int id, IFormFile file)
+    {
+        await birthdaysService.UploadPhotoAsync(id, file);
+        return Ok();
+    }
 }

@@ -12,7 +12,8 @@ public static class BirthdaysExtensions
             birthday.Id,
             birthday.FirstName,
             birthday.LastName,
-            birthday.BirthDay
+            birthday.BirthDay,
+            birthday.PhotoPath
         );
     }
 

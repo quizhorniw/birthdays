@@ -4,7 +4,7 @@ using Birthdays.Api.Repositories;
 
 namespace Birthdays.Api.Services;
 
-public class BirthdaysService(IBirthdaysRepository birthdaysRepository, ILogger<BirthdaysService> logger) : IBirthdaysService
+public class BirthdaysService(IBirthdaysRepository birthdaysRepository) : IBirthdaysService
 {
     public async Task<IEnumerable<BirthdayDto>> GetBirthdaysAsync()
     {
@@ -38,6 +38,43 @@ public class BirthdaysService(IBirthdaysRepository birthdaysRepository, ILogger<
     {
         await birthdaysRepository.DeleteBirthdayAsync(id);
     }
+
+    public async Task UploadPhotoAsync(int id, IFormFile? file)
+    {
+        var birthday = await birthdaysRepository.GetBirthdayAsync(id);
+        if (birthday is null)
+        {
+            return;
+        }
+        
+        if (file is null || file.Length == 0)
+        {
+            return;
+        }
+
+        var uploads = GetPhotoDirectory();
+
+        var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+        var filePath = Path.Combine(uploads, fileName);
+
+        await using var stream = new FileStream(filePath, FileMode.Create);
+        await file.CopyToAsync(stream);
+
+        birthday.PhotoPath = filePath;
+        await birthdaysRepository.UpdateBirthdayAsync(id, birthday);
+    }
+
+    private static string GetPhotoDirectory()
+    {
+        var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+        
+        if (!Directory.Exists(uploads))
+        {
+            Directory.CreateDirectory(uploads);
+        }
+
+        return uploads;
+    }
 }
 
 public interface IBirthdaysService
@@ -47,4 +84,5 @@ public interface IBirthdaysService
     Task<BirthdayDto> InsertBirthdayAsync(CreateBirthdayDto createBirthdayDto);
     Task<BirthdayDto?> UpdateBirthdayAsync(int id, UpdateBirthdayDto updateBirthdayDto);
     Task DeleteBirthdayAsync(int id);
+    Task UploadPhotoAsync(int id, IFormFile file);
 }
