@@ -42,13 +42,16 @@ public class BirthdaysRepository(BirthdaysDbContext context) : IBirthdaysReposit
         await context.SaveChangesAsync();
     }
     
-    private bool _disposed = false;
+    private bool _disposed;
 
     private void Dispose(bool disposing)
     {
-        if (!_disposed && disposing)
+        if (!_disposed)
         {
-            context.Dispose();
+            if (disposing)
+            {
+                context.Dispose();
+            }
         }
         _disposed = true;
     }
