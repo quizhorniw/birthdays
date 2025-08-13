@@ -1,5 +1,6 @@
 using Birthdays.Api;
 using Birthdays.Api.Extensions;
+using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
+app.UseHangfireDashboard();
 app.MigrateDb();
 
 app.Run();
