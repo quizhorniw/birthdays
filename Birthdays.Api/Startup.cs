@@ -20,5 +20,7 @@ public class Startup(IConfiguration configuration)
             .UsePostgreSqlStorage(opts => opts
                 .UseNpgsqlConnection(configuration["ConnectionStrings:HangfireDBConnection"])));
         services.AddHangfireServer();
+
+        services.AddScoped<IEmailAddressesRepository, EmailAddressesRepository>();
     }
 }
