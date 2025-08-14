@@ -41,13 +41,13 @@ public class BirthdaysService(IBirthdaysRepository birthdaysRepository) : IBirth
 
     public async Task UploadPhotoAsync(int id, IFormFile? file)
     {
-        var birthday = await birthdaysRepository.GetBirthdayAsync(id);
-        if (birthday is null)
+        if (file is null || file.Length == 0)
         {
             return;
         }
         
-        if (file is null || file.Length == 0)
+        var birthday = await birthdaysRepository.GetBirthdayAsync(id);
+        if (birthday is null)
         {
             return;
         }
