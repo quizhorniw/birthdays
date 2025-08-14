@@ -58,8 +58,7 @@ public class EmailSenderJob(
         RecurringJob.AddOrUpdate(
             "email-job",
             () => ExecuteEmailJob(),
-            // configuration["Job:Cron"]);
-            "*/5 * * * *");
+            configuration["Job:Cron"]);
     }
 
     public async Task ExecuteEmailJob()
