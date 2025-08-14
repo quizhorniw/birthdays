@@ -23,11 +23,15 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.UseHangfireDashboard();
-using var scope = app.Services.CreateScope();
-var emailSenderJob = scope.ServiceProvider.GetService<EmailSenderJob>();
-emailSenderJob?.ScheduleJob();
-
-app.MigrateDb();
+if (!Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!.Equals("Testing",
+        StringComparison.OrdinalIgnoreCase))
+{
+    app.UseHangfireDashboard();
+    using var scope = app.Services.CreateScope();
+    var emailSenderJob = scope.ServiceProvider.GetService<EmailSenderJob>();
+    emailSenderJob?.ScheduleJob();
+    
+    app.MigrateDb();
+}
 
 app.Run();
