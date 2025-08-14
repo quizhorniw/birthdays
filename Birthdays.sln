@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Birthdays.Api", "Birthdays.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Birthdays.Api.UnitTests", "Birthdays.Api.UnitTests\Birthdays.Api.UnitTests.csproj", "{163CD833-40D4-4BCC-ABD8-56C593E0F9D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Birthdays.Api.IntegrationTests", "Birthdays.Api.IntegrationTests\Birthdays.Api.IntegrationTests.csproj", "{B4693FDD-D1CD-4ED2-A591-2CAD2A480584}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{163CD833-40D4-4BCC-ABD8-56C593E0F9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{163CD833-40D4-4BCC-ABD8-56C593E0F9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{163CD833-40D4-4BCC-ABD8-56C593E0F9D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4693FDD-D1CD-4ED2-A591-2CAD2A480584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4693FDD-D1CD-4ED2-A591-2CAD2A480584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4693FDD-D1CD-4ED2-A591-2CAD2A480584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4693FDD-D1CD-4ED2-A591-2CAD2A480584}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
