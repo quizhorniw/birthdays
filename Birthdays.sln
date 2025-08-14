@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Birthdays.Api", "Birthdays.Api\Birthdays.Api.csproj", "{8B44F290-CCF1-4F2D-9535-12BF564FFC91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Birthdays.Tests", "Birthdays.Tests\Birthdays.Tests.csproj", "{163CD833-40D4-4BCC-ABD8-56C593E0F9D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Birthdays.Api.UnitTests", "Birthdays.Api.UnitTests\Birthdays.Api.UnitTests.csproj", "{163CD833-40D4-4BCC-ABD8-56C593E0F9D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
