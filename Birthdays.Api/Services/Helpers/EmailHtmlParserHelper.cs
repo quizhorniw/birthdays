@@ -13,8 +13,11 @@ public class EmailHtmlParserHelper(IConfiguration configuration, IBirthdaysServi
             birthdaysService.GetBirthdaysAsync().Result
                 .Where(b =>
                 {
-                    var birthday = new DateOnly(today.Year, b.BirthDay.Month, b.BirthDay.Day);
-                    return birthday >= today && birthday <= twoWeeksFromNow;
+                    var birthdayThisYear = new DateOnly(today.Year, b.BirthDay.Month, b.BirthDay.Day);
+                    var birthdayNextYear = new DateOnly(today.Year + 1, b.BirthDay.Month, b.BirthDay.Day);
+
+                    return (birthdayThisYear >= today && birthdayThisYear <= twoWeeksFromNow) ||
+                           (birthdayNextYear >= today && birthdayNextYear <= twoWeeksFromNow);
                 })
                 .Select(dto => dto.ToEmailString()),
             configuration["Html:BirthdaysEmailTemplate"]!,
