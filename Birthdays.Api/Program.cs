@@ -19,11 +19,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseCors("AllowAllOrigins");
 
 app.MapControllers();
+app.MapFallbackToFile("index.html");
 
 if (!Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!.Equals("Testing",
         StringComparison.OrdinalIgnoreCase))

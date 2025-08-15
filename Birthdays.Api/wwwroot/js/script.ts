@@ -41,7 +41,7 @@ function displayBirthdays(birthdays: Birthday[]): void {
 
     birthdays.forEach(birthday => {
         const card = document.createElement('div');
-        card.className = 'card'; // Add the card class
+        card.className = 'card';
 
         const birthdayDate = new Date(birthday.birthDay);
         card.innerHTML = `

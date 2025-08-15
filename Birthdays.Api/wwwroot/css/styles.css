@@ -47,13 +47,13 @@ h1 {
     margin-right: 5px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 980px) {
     #birthday-container {
         grid-template-columns: repeat(auto-fill, minmax(250px, 450px));
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 980px) {
     .card {
         padding: 10px;
     }
