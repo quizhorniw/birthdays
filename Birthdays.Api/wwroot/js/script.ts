@@ -28,8 +28,10 @@ function filterUpcomingBirthdays(birthdays: Birthday[]): Birthday[] {
     });
 }
 
-function displayBirthdays(birthdays: Birthday[]): Birthday[] {
+function displayBirthdays(birthdays: Birthday[]): void {
     const container = document.getElementById('birthday-container');
+    if (!container) return;
+
     container.innerHTML = '';
 
     if (birthdays.length === 0) {
@@ -38,10 +40,16 @@ function displayBirthdays(birthdays: Birthday[]): Birthday[] {
     }
 
     birthdays.forEach(birthday => {
-        const div = document.createElement('div');
+        const card = document.createElement('div');
+        card.className = 'card'; // Add the card class
+
         const birthdayDate = new Date(birthday.birthDay);
-        div.textContent = `${birthday.firstName} ${birthday.lastName} - ${formatBirthday(birthdayDate)}`;
-        container.appendChild(div);
+        card.innerHTML = `
+            <p>${birthday.firstName} ${birthday.lastName}</p>
+            <p><i class="fas fa-birthday-cake"></i> ${formatBirthday(birthdayDate)}</p>
+        `;
+
+        container.appendChild(card);
     });
 }
 
@@ -66,5 +74,5 @@ interface Birthday {
     firstName: string;
     lastName: string;
     birthDay: string;
-    photoPath: string;
+    photoPath?: string | undefined;
 }
