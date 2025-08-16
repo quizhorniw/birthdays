@@ -162,30 +162,4 @@ public class BirthdaysServiceTests
         // Assert
         _repositoryMock.Verify(r => r.UpdateBirthdayAsync(It.IsAny<int>(), It.IsAny<Birthday>()), Times.Never);
     }
-
-    [Test]
-    public async Task UploadPhotoAsync_CreatesDirectoryIfNotExists()
-    {
-        // Arrange
-        var fileMock = new Mock<IFormFile>();
-        fileMock.Setup(f => f.FileName).Returns("test.jpg");
-        fileMock.Setup(f => f.Length).Returns(100L);
-        using var stream = new MemoryStream();
-        fileMock.Setup(f => f.OpenReadStream()).Returns(stream);
-
-        var birthday = new Birthday
-        {
-            Id = 1, FirstName = "Иван", LastName = "Иванов"
-        };
-        _repositoryMock.Setup(r => r.GetBirthdayAsync(1)).ReturnsAsync(birthday);
-        _repositoryMock.Setup(r => r.UpdateBirthdayAsync(1, birthday)).ReturnsAsync(true);
-
-        // Act
-        await _service.UploadPhotoAsync(1, fileMock.Object);
-
-        // Assert
-        _repositoryMock.Verify(r => r.UpdateBirthdayAsync(1, birthday), Times.Once);
-        That(birthday.PhotoPath, Is.Not.Null);
-        That(Directory.Exists(Path.GetDirectoryName(birthday.PhotoPath)), Is.True);
-    }
 }

@@ -18,7 +18,7 @@ public class BirthdaysExtensionsTests
             FirstName = "Иван",
             LastName = "Иванов",
             BirthDay = new DateOnly(1990, 5, 15),
-            PhotoPath = "/images/ivan.jpg"
+            PhotoFileName = "ivan.jpg"
         };
 
         // Act
@@ -29,7 +29,7 @@ public class BirthdaysExtensionsTests
         That(dto.FirstName, Is.EqualTo(birthday.FirstName));
         That(dto.LastName, Is.EqualTo(birthday.LastName));
         That(dto.BirthDay, Is.EqualTo(birthday.BirthDay));
-        That(dto.PhotoPath, Is.EqualTo(birthday.PhotoPath));
+        That(dto.PhotoFileName, Is.EqualTo(birthday.PhotoFileName));
     }
 
     [Test]
@@ -46,7 +46,7 @@ public class BirthdaysExtensionsTests
         That(entity.LastName, Is.EqualTo(createDto.LastName));
         That(entity.BirthDay, Is.EqualTo(createDto.BirthDay));
         That(entity.Id, Is.Zero);
-        That(entity.PhotoPath, Is.Null);
+        That(entity.PhotoFileName, Is.Null);
     }
 
     [Test]
@@ -63,7 +63,7 @@ public class BirthdaysExtensionsTests
         That(entity.LastName, Is.EqualTo(updateDto.LastName));
         That(entity.BirthDay, Is.EqualTo(updateDto.BirthDay));
         That(entity.Id, Is.Zero);
-        That(entity.PhotoPath, Is.Null);
+        That(entity.PhotoFileName, Is.Null);
     }
 
     [Test]

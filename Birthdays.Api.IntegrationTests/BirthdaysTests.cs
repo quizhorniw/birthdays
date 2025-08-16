@@ -148,7 +148,7 @@ public class BirthdaysTests
         multipartContent.Add(new StreamContent(fileStream), "file", "test.txt");
 
         // Act
-        var response = await _client.PostAsync($"/api/birthdays/uploadPic/{id}", multipartContent);
+        var response = await _client.PostAsync($"/api/birthdays/{id}/upload", multipartContent);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -158,8 +158,9 @@ public class BirthdaysTests
     public async Task UploadPhoto_NullFile_ReturnsBadRequest()
     {
         // Act
+        var response = await _client.PostAsync("/api/birthdays/1/upload", null);
+        
         // Assert
-        var response = await _client.PostAsync("/api/birthdays/uploadPic/1", null);
         That((int)response.StatusCode, Is.EqualTo(400));
     }
 
