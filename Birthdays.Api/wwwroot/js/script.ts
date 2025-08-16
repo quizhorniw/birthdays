@@ -1,4 +1,5 @@
-window.onload = fetchBirthdays;
+import {Birthday} from "./model.js";
+import {formatBirthday} from "./tools.js";
 
 function fetchBirthdays() : void {
     fetch('http://localhost:5070/api/birthdays')
@@ -8,8 +9,8 @@ function fetchBirthdays() : void {
             }
             return response.json();
         })
-        .then(data => {
-            const upcomingBirthdays = filterUpcomingBirthdays(data);
+        .then((data: Birthday[]) => {
+            const upcomingBirthdays = sortUpcomingBirthdays(filterUpcomingBirthdays(data));
             displayBirthdays(upcomingBirthdays);
         })
         .catch(error => {
@@ -28,6 +29,24 @@ function filterUpcomingBirthdays(birthdays: Birthday[]): Birthday[] {
     });
 }
 
+function sortUpcomingBirthdays(birthdays: Birthday[]): Birthday[] {
+    const today = new Date();
+
+    return birthdays.map(birthday => {
+        const birthdayDate = new Date(birthday.birthDay);
+        const nextOccurrence = new Date(
+            birthdayDate.getMonth() < today.getMonth() ? today.getFullYear() + 1 : today.getFullYear(),
+            birthdayDate.getMonth(),
+            birthdayDate.getDay()
+        );
+
+        return {
+            ...birthday,
+            nextOccurrence: nextOccurrence
+        };
+    }).sort((a, b) => a.nextOccurrence.getTime() - b.nextOccurrence.getTime());
+}
+
 function displayBirthdays(birthdays: Birthday[]): void {
     const container = document.getElementById('birthday-container');
     if (!container) return;
@@ -44,10 +63,16 @@ function displayBirthdays(birthdays: Birthday[]): void {
         card.className = 'card';
 
         const birthdayDate = new Date(birthday.birthDay);
+        const photoFileName = '../images/' + (birthday.photoFileName ? birthday.photoFileName : 'default-card.jpg');
         card.innerHTML = `
-            <p>${birthday.firstName} ${birthday.lastName}</p>
+            <img src="${photoFileName}" alt="Изображение" style="max-width: 200px;">
+            <h3>${birthday.firstName} ${birthday.lastName}</h3>
             <p><i class="fas fa-birthday-cake"></i> ${formatBirthday(birthdayDate)}</p>
         `;
+
+        card.addEventListener('click', () => {
+            window.location.href = `card.html?id=${birthday.id}`;
+        });
 
         container.appendChild(card);
     });
@@ -64,15 +89,4 @@ function isBirthdayInNextTwoWeeks(today: Date, birthDay: Date) : boolean {
         (birthdayNextYear >= today && birthdayNextYear <= twoWeeksFromNow);
 }
 
-function formatBirthday(date: Date) : string {
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
-    return date.toLocaleDateString('ru-RU', options);
-}
-
-interface Birthday {
-    id: number;
-    firstName: string;
-    lastName: string;
-    birthDay: string;
-    photoPath?: string | undefined;
-}
+window.onload = fetchBirthdays;
