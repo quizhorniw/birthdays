@@ -27,4 +27,11 @@
       <Folder Include="wwwroot\images\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <TypeScriptCompile Include="wwwroot\js\create-card.ts" />
+      <TypeScriptCompile Include="wwwroot\js\model.ts" />
+      <TypeScriptCompile Include="wwwroot\js\subscribe.ts" />
+      <TypeScriptCompile Include="wwwroot\js\tools.ts" />
+    </ItemGroup>
+
 </Project>

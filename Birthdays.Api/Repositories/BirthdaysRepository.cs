@@ -26,9 +26,11 @@ public class BirthdaysRepository(BirthdaysDbContext context) : IBirthdaysReposit
         var existingBirthday = await context.Birthdays.FindAsync(id);
         
         if (existingBirthday is null) return false;
-        
-        context.Entry(existingBirthday).CurrentValues.SetValues(birthday);
 
+        existingBirthday.FirstName = birthday.FirstName;
+        existingBirthday.LastName = birthday.LastName;
+        existingBirthday.BirthDay = birthday.BirthDay;
+        
         return true;
     }
 

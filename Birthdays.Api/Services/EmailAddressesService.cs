@@ -16,8 +16,12 @@ public class EmailAddressesService(IEmailAddressesRepository emailAddressesRepos
         var emailAddressAttribute = new EmailAddressAttribute();
         if (emailAddressAttribute.IsValid(emailAddress))
         {
-            await emailAddressesRepository.InsertEmailAddressAsync(emailAddress);
-            await emailAddressesRepository.SaveAsync();
+            var emailAddresses = await emailAddressesRepository.GetEmailAddressesAsync();
+            if (emailAddresses.All(e => e.Value != emailAddress))
+            {
+                await emailAddressesRepository.InsertEmailAddressAsync(emailAddress);
+                await emailAddressesRepository.SaveAsync();
+            }
         }
     }
 

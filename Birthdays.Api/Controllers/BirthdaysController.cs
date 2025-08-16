@@ -43,7 +43,7 @@ public class BirthdaysController(IBirthdaysService birthdaysService) : Controlle
         return NoContent();
     }
 
-    [HttpPost("uploadPic/{id:int}")]
+    [HttpPost("{id:int}/upload")]
     public async Task<ActionResult> UploadPhoto(int id, IFormFile file)
     {
         await birthdaysService.UploadPhotoAsync(id, file);

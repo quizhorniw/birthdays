@@ -6,6 +6,7 @@ using Birthdays.Api.Services.Wrappers;
 using Hangfire;
 using Hangfire.PostgreSql;
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 
 namespace Birthdays.Api;
@@ -23,6 +24,11 @@ public class Startup(IConfiguration configuration)
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                 });
+        });
+        
+        services.Configure<FormOptions>(options =>
+        {
+            options.MultipartBodyLengthLimit = 104857600; // 100 MB
         });
         
         if (!Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!.Equals("Testing",

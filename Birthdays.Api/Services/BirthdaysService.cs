@@ -29,6 +29,7 @@ public class BirthdaysService(IBirthdaysRepository birthdaysRepository) : IBirth
     public async Task<BirthdayDto?> UpdateBirthdayAsync(int id, UpdateBirthdayDto updateBirthdayDto)
     {
         var birthday = updateBirthdayDto.ToEntity();
+        birthday.Id = id;
         var updated = await birthdaysRepository.UpdateBirthdayAsync(id, birthday);
         await birthdaysRepository.SaveAsync();
         return updated ? birthday.ToDto() : null;
@@ -60,8 +61,9 @@ public class BirthdaysService(IBirthdaysRepository birthdaysRepository) : IBirth
         await using var stream = new FileStream(filePath, FileMode.Create);
         await file.CopyToAsync(stream);
 
-        birthday.PhotoPath = filePath;
+        birthday.PhotoFileName = fileName;
         await birthdaysRepository.UpdateBirthdayAsync(id, birthday);
+        await birthdaysRepository.SaveAsync();
     }
 
     private static string GetPhotoDirectory()

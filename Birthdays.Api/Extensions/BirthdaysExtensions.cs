@@ -13,7 +13,7 @@ public static class BirthdaysExtensions
             birthday.FirstName,
             birthday.LastName,
             birthday.BirthDay,
-            birthday.PhotoPath
+            birthday.PhotoFileName
         );
     }
 
